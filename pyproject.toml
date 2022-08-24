@@ -1,0 +1,17 @@
+[tool.poetry]
+name = "anilist-recommender"
+version = "0.1.0"
+description = "A program which recommends anime and manga, using an AniList username, preferred genres and other criteria into account."
+authors = ["Omer Mikhail Khan <contact@omermikhailk.dev>"]
+license = "MIT"
+
+[tool.poetry.dependencies]
+python = "^3.10"
+requests = "^2.28.1"
+
+[tool.poetry.dev-dependencies]
+flake8 = "^5.0.4"
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
