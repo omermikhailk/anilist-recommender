@@ -21,6 +21,6 @@ These can be found in `pyproject.toml` and installed via `pip install .`.
 
 ## Meta
 
-Since this project is mainly for learnign purposes, I won't be aceepting pull requests,
+Since this project is mainly for learning purposes, I won't be aceepting pull requests,
 however feel free to create issues for anything that you'd either like to see added or are
 having issues with.
