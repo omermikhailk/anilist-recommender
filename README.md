@@ -4,7 +4,7 @@
 
 This is a program which aims to generate anime and manga recommendations based on a few parameters
 that the user provides. The only necessary parameter is the user's AniList username, however
-additional parameters available are:
+additional available parameters are:
 - One or more genres
 - How many recommendations the user wants
 - Whether the user is okay with anime/manga marked as 18+
