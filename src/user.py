@@ -10,7 +10,20 @@ query_url = 'https://graphql.anilist.co'
 
 
 class User:
+    """A class representing a user on AniList.
+
+    Attributes:
+        username (str): The user's AniList username.
+        query_variables (dict[str: int | str]): A dictionary contaning
+            variables to be used for when a query is being formulated to send
+            to the AL API.
+    """
     def __init__(self, username: str):
+        """Initialises the `User` class.
+
+        Args:
+            username (str): The user's AniList username.
+        """
         self.username = username
         self.query_variables = {'page': 1,
                                 'perPage': 50,
