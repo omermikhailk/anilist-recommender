@@ -1,4 +1,4 @@
-"""A AniList user class."""
+"""An AniList user class."""
 
 
 import requests

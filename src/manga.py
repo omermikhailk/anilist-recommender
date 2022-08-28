@@ -1,3 +1,6 @@
+"""An AniList manga class."""
+
+
 class Manga():
     """A class representing a manga on AL.
 

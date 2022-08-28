@@ -1,3 +1,6 @@
+"""An AniList anime class."""
+
+
 class Anime():
     """A class representing an anime on AL.
 
