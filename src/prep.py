@@ -5,8 +5,6 @@ for general utilities as well."""
 import requests
 
 
-query_url = 'https://graphql.anilist.co'
-
 
 def get_genres() -> list:
     """Queries the AniList API and returns a list of all of the genres.
@@ -24,6 +22,10 @@ def get_genres() -> list:
     genres = genres['data']['GenreCollection']
 
     return genres
+
+
+query_url = 'https://graphql.anilist.co'
+genres = get_genres()
 
 
 def main():
