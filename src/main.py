@@ -1,7 +1,7 @@
 from user import User
 
 
-query = """
+query = '''
     query ($page: Int, $perPage: Int, $userName: String, $type: MediaType) {
         Page (page: $page, perPage: $perPage) {
             mediaList (userName: $userName, type: $type) {
@@ -25,10 +25,8 @@ query = """
                 }
             }
         }
-
-        GenreCollection
     }
-"""
+'''
 
 
 def main():
