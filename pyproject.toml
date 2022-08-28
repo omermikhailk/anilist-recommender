@@ -1,7 +1,7 @@
 [tool.poetry]
 name = "anilist-recommender"
 version = "0.1.0"
-description = "A program which recommends anime and manga, using an AniList username, preferred genres and other criteria into account."
+description = "A program which recommends anime and manga, using an AniList username, as well as taking in preferred genres and other criteria into account."
 authors = ["Omer Mikhail Khan <contact@omermikhailk.dev>"]
 license = "MIT"
 
