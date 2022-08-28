@@ -1,9 +1,9 @@
 """A AniList user class."""
 
 
+import requests
 from anime import Anime
 from manga import Manga
-import requests
 
 
 query_url = 'https://graphql.anilist.co'
@@ -14,45 +14,60 @@ class User:
 
     Attributes:
         username (str): The user's AniList username.
-        query_variables (dict[str: int | str]): A dictionary contaning
-            variables to be used for when a query is being formulated to send
-            to the AL API.
     """
-    def __init__(self, username: str):
+    def __init__(self, username: str) -> None:
         """Initialises the `User` class.
 
         Args:
             username (str): The user's AniList username.
         """
         self.username = username
-        self.query_variables = {'page': 1,
-                                'perPage': 50,
-                                'userName': self.username}
 
-    def __repr__(self):
+    def __repr__(self) -> str:
+        """Returns a representation of the `User` class.
+
+        Returns:
+            str: A representation of the `User` class.
+        """
         return f'User({self.username})'
 
-    def paginate(self, query: str) -> list[dict]:
-        """Paginates through a user's media list, using a given `query` string.
+    def get_query_variables(self) -> dict:
+        """Returns the variables required for the query which will be sent to
+        the AL API.
 
-        Returns the media list elements if they can be found, otherwise an
-        empty list is given back, indicating that the end of pagination has
-        been reached.
+        Returns:
+            dict: The variables required for the API query.
+        """
+        return {'page': 1,
+                'perPage': 50,
+                'userName': self.username,
+                'type': None}
+
+    def paginate(self, query: str, query_variables: dict) -> list[dict]:
+        """Paginates through a user's media list using a given query to the API
+        (`query`) and the variables required to do so (`query_variables`).
+
+        If elements in the media list can be found they are returned. If not an
+        empty list is returned, indicating that paginatnion has come to an end.
 
         Args:
             query (str): The query string that will be sent to the AL API.
+            query_variables (dict): The variables required for the query to the
+                AL API.
 
         Returns:
-            list[dict]: Either a list containing the media list
-            elements are sent, or an empty list is returned.
+            results (list[dict]): This list either contains elements of the
+                user's media list, or it is empty, thereby indicating that
+                pagination has come to an end.
         """
         results = requests.post(query_url,
                                 json={'query': query,
-                                      'variables': self.query_variables})\
-            .json()['data']['Page']
+                                      'variables': query_variables}).json()
+        results = results['data']['Page']
 
         if not results['mediaList']:
-            return []
+            results = []
+            return results
         else:
             return results['mediaList']
 
@@ -61,9 +76,9 @@ class User:
         entries, and returns them as a list in the form of many `Anime`
         objects.
 
-        The returned list of objects contains information such as: titles
-        (english and romaji), episodes, whether the anime is adult or not,
-        genres, a description and it's average score.
+        The returned list of objects contains entry-specific information such
+        as the information such as the title of the show, the number of
+        episodes, etc.
 
         Args:
             query (str): The query string that will be sent to the AL API.
@@ -73,12 +88,13 @@ class User:
                 user's AL media list.
         """
         anime_list = []
-        self.query_variables['type'] = 'ANIME'
+        query_variables = self.get_query_variables()
+        query_variables['type'] = 'ANIME'
 
         # We will cycle through every page (since we have to use pagination
-        # with the AniList API) and continue until the results are exhausted
+        # with the AniList API) and continue until the results are exhausted.
         while True:
-            if results := self.paginate(query):
+            if results := self.paginate(query, query_variables):
                 pass
             else:
                 break
@@ -92,7 +108,7 @@ class User:
                                         anime['description'],
                                         anime['averageScore']))
 
-            self.query_variables['page'] += 1
+            query_variables['page'] += 1
 
         return anime_list
 
@@ -101,10 +117,9 @@ class User:
         entries, and returns them as a list in the form of many `Manga`
         objects.
 
-        The returned list of objects contains information such as: titles
-        (english and romaji), number of chapters, number of volumes, whether
-        the manga is adult or not, genres, a description and it's average
-        score.
+        The returned list of objects contains entry-specific information such
+        as the information such as the title of the manga, the number of
+        chapters, etc.
 
         Args:
             query (str): The query string that will be sent to the AL API.
@@ -114,12 +129,13 @@ class User:
                 user's AL media list.
         """
         manga_list = []
-        self.query_variables['type'] = 'MANGA'
+        query_variables = self.get_query_variables()
+        query_variables['type'] = 'MANGA'
 
         # We will cycle through every page (since we have to use pagination
-        # with the AniList API) and continue until the results are exhausted
+        # with the AniList API) and continue until the results are exhausted.
         while True:
-            if results := self.paginate(query):
+            if results := self.paginate(query, query_variables):
                 pass
             else:
                 break
@@ -134,6 +150,6 @@ class User:
                                         manga['description'],
                                         manga['averageScore']))
 
-            self.query_variables['page'] += 1
+            query_variables['page'] += 1
 
         return manga_list
