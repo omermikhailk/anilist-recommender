@@ -5,7 +5,6 @@ for general utilities as well."""
 import requests
 
 
-
 def get_genres() -> list:
     """Queries the AniList API and returns a list of all of the genres.
 
