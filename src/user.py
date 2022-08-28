@@ -4,9 +4,7 @@
 import requests
 from anime import Anime
 from manga import Manga
-
-
-query_url = 'https://graphql.anilist.co'
+from prep import query_url
 
 
 class User:
