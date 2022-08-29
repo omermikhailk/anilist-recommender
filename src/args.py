@@ -1,7 +1,7 @@
 """Handles command line arguments from the user."""
 
 
-from prep import genres as anilist_genres
+import prep
 import argparse
 
 
@@ -123,7 +123,8 @@ def check_args(args: argparse.Namespace) -> None:
     # `genre` and `partial-match`
     if args.genre is not None:
         user_genres = [' '.join(user_genre) for user_genre in args.genre]
-        anilist_genres_lower = list(map(str.lower, anilist_genres))
+        anilist_genres_lower = prep.genres_convert_lowercase(
+            prep.anilist_genres)
 
         for genre in user_genres:
             if genre not in anilist_genres_lower:
