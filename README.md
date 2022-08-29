@@ -65,7 +65,7 @@ options:
   -a, --adult           Whether the user is okay with series marked as 'Adult' (default false).
 ```
 
-## Dependancies
+## Dependencies
 
 These can be found in `pyproject.toml` and installed via `pip install .`.
 
