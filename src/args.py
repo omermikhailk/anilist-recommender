@@ -42,11 +42,11 @@ help_adult = ('Whether the user is okay with series marked as \'Adult\' '
               '(default false).')
 
 
-def add_args() -> argparse.ArgumentParser:
+def add_args() -> argparse.Namespace:
     """Adds command line arguments that the user can use and returns them.
 
     Returns:
-        args (argparse.ArgumentParser): The arguments that the user entered
+        args (argparse.Namespace): The arguments that the user entered
             and their values.
     """
     parser = argparse.ArgumentParser(
@@ -82,7 +82,7 @@ def add_args() -> argparse.ArgumentParser:
     return args
 
 
-def check_args(args: argparse.ArgumentParser) -> None:
+def check_args(args: argparse.Namespace) -> None:
     """Makes sure that there's no errors in the values entered for the command
     line arguments.
 
