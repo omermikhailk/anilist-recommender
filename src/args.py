@@ -15,7 +15,8 @@ media (anime or manga).
 Optional arguments include:
 
 * Preferred genres (written like --genre slice of life --genre comedy, etc.)
-    * Whether the user wants a full match or a partial match of genres
+    * Whether the user wants a full match or a partial match of genres. The
+        default is a full match.
     * The full list of available genres on AniList are:
         - Action           - Adventure        - Comedy
         - Drama            - Ecchi            - Fantasy
@@ -36,6 +37,7 @@ help_username = 'An AniList username.'
 help_type = ('The type of media (anime or manga) that the user is interested'
              'in.')
 help_genre = 'An AniList genre.'
+help_partial_match = 'Whether the user wants a partial match of genres.'
 help_lower_bound = 'A lower bound on the number of episodes/chapters/volumes.'
 help_upper_bound = 'An upper bound on the number of episodes/chapters/volumes.'
 help_adult = ('Whether the user is okay with series marked as \'Adult\' '
@@ -52,7 +54,7 @@ def add_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(
         description=program_description,
         formatter_class=argparse.RawTextHelpFormatter)
-
+    
     parser.add_argument('username',
                         help=help_username)
     parser.add_argument('type',
@@ -63,6 +65,11 @@ def add_args() -> argparse.Namespace:
                         help=help_genre,
                         action='append',
                         nargs='+')
+    parser.add_argument('-pm',
+                        '--partial-match',
+                        help=help_partial_match,
+                        action="store_true",
+                        default=False)
     parser.add_argument('-lb',
                         '--lower-bound',
                         help=help_lower_bound,
@@ -95,6 +102,7 @@ def check_args(args: argparse.Namespace) -> None:
         ValueError: if `lower-bound` <= 0
         ValueError: if `upper-bound` < `lower-bound`
         ValueError: if `genre` is not a valid AniList genre
+        ValueError: if `partial-match` is true but there are no genres
     """
     # `upper-bound` and `lower-bound`
     lower_bound = args.lower_bound
@@ -112,7 +120,7 @@ def check_args(args: argparse.Namespace) -> None:
         if lower_bound > upper_bound:
             raise ValueError('upper-bound should be greater than lower-bound')
 
-    # `genre`
+    # `genre` and `partial-match`
     if args.genre is not None:
         user_genres = [' '.join(user_genre) for user_genre in args.genre]
         anilist_genres_lower = list(map(str.lower, anilist_genres))
@@ -120,6 +128,9 @@ def check_args(args: argparse.Namespace) -> None:
         for genre in user_genres:
             if genre not in anilist_genres_lower:
                 raise ValueError(f'\'{genre}\' is not a valid AniList genre')
+    else:
+        if args.partial_match:
+            raise ValueError('partial-match requires you to add genres')
 
 
 def main():
