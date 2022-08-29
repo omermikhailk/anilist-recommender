@@ -124,11 +124,11 @@ def check_args(args: argparse.Namespace) -> None:
 
     # `genre`
     if args.genre is not None:
-        user_genres = [' '.join(user_genre) for user_genre in args.genre]
-        anilist_genres_lower = prep.genres_lowercase(prep.anilist_genres)
+        user_genres = prep.get_user_genres(args.genre)
+        anilist_genres = prep.get_lowercase_genres(prep.anilist_genres)
 
         for genre in user_genres:
-            if genre not in anilist_genres_lower:
+            if genre not in anilist_genres:
                 raise ValueError(f'\'{genre}\' is not a valid AniList genre')
         
         # `partial-match`
