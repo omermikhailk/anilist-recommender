@@ -1,3 +1,5 @@
+import prep
+import args
 from user import User
 
 
@@ -30,17 +32,6 @@ query = '''
 
 
 def main():
-    """
-    user = User('omermikhailk')
-
-    manga_list = user.get_manga_list(query)
-    for manga in manga_list:
-        print(manga)
-    print('-\n-\n-\n-\n')
-    anime_list = user.get_anime_list(query)
-    for anime in anime_list:
-        print(anime)
-    """
     pass
 
 
