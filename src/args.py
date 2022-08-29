@@ -14,6 +14,7 @@ media (anime or manga).
 
 Optional arguments include:
 
+* The preferred number of recommendations you would like to receive.
 * Preferred genres (written like --genre slice of life --genre comedy, etc.)
     * Whether the user wants a full match or a partial match of genres. The
         default is a full match. If partial match is selected then only one
@@ -37,6 +38,8 @@ information about them.
 help_username = 'An AniList username.'
 help_type = ('The type of media (anime or manga) that the user is interested '
              'in.')
+help_count = ('The number of recommendations you would like to receive '
+              '(default is 5).')
 help_genre = 'One or more AniList genres.'
 help_partial_match = ('Whether the user wants a partial match of genres '
                       '(default false).')
@@ -62,6 +65,11 @@ def add_args() -> argparse.Namespace:
     parser.add_argument('type',
                         help=help_type,
                         choices=['anime', 'manga'])
+    parser.add_argument('-c',
+                        '--count',
+                        help=help_count,
+                        default=5,
+                        type=int)
     parser.add_argument('-g',
                         '--genre',
                         help=help_genre,
@@ -106,6 +114,10 @@ def check_args(args: argparse.Namespace) -> None:
         ValueError: if `genre` is not a valid AniList genre
         ValueError: if `partial-match` is true but there are no genres
     """
+    # `count`
+    if args.count <= 0:
+        raise ValueError('count must be greater than 0')
+
     # `upper-bound` and `lower-bound`
     lower_bound = args.lower_bound
     upper_bound = args.upper_bound
