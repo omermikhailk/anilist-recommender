@@ -34,10 +34,11 @@ information about them.
 '''
 
 help_username = 'An AniList username.'
-help_type = ('The type of media (anime or manga) that the user is interested'
+help_type = ('The type of media (anime or manga) that the user is interested '
              'in.')
-help_genre = 'An AniList genre.'
-help_partial_match = 'Whether the user wants a partial match of genres.'
+help_genre = 'One or more AniList genres.'
+help_partial_match = ('Whether the user wants a partial match of genres '
+                      '(default false).')
 help_lower_bound = 'A lower bound on the number of episodes/chapters/volumes.'
 help_upper_bound = 'An upper bound on the number of episodes/chapters/volumes.'
 help_adult = ('Whether the user is okay with series marked as \'Adult\' '
