@@ -17,8 +17,8 @@ Optional arguments include:
 * The preferred number of recommendations you would like to receive.
 * Preferred genres (written like --genre slice of life --genre comedy, etc.)
     * Whether the user wants a full match or a partial match of genres. The
-        default is a full match. If partial match is selected then only one
-        genre should be given as the input.
+      default is a full match. If partial match is selected then only one
+      genre should be given as the input.
     * The full list of available genres on AniList are:
         - Action           - Adventure        - Comedy
         - Drama            - Ecchi            - Fantasy
