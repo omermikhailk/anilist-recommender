@@ -27,54 +27,37 @@ def get_anilist_genres() -> list:
     return genres
 
 
-def get_lowercase_genres(genres):
+def get_lowercase_genres(genres: list[str]) -> list[str]:
+    """Takes in a list of genres and returns that same list, with every
+    genre being lowercase.
+
+    Args:
+        genres (list[str]): The list of genres.
+
+    Returns:
+        list[str]: The same list of genres, with every element being converted
+            to be lowercase.
+    """
     return list(map(str.lower, genres))
 
 
 # Arg cleaning
 
-def get_user_genres(genres):
-    return [' '.join(genre) for genre in genres]
+def get_user_genres(genres: list[list[str]]) -> list[str]:
+    """Takes in a list of genres, from the command line `--genre` argument
+    input, which is a 2D list, and returns the flattened version of it.
 
-
-# List filtering based on args
-
-def sort_score(media_list: list[Anime | Manga]) -> list[Anime | Manga]:
-    """Sorts a list of anime or manga, by their scores on AniList, in
-    descending order.
+    [['slice', 'of', 'life'], ['comedy']] -> ['slice of life', 'comedy']
 
     Args:
-        media_list (list[Anime | Manga]): A list of anime or manga,
-            containing instances of the `Anime` or `Manga` classes.
+        genres (list[list[str]]): A 2D list of the genres that the user is
+            interested in.
 
     Returns:
-        sorted_list (list[Anime | Manga]): A sorted list of anime or manga
-            entries, in descending order of their scores on AniList.
+        list[str]: The same genres, however in a 1D list.
     """
-    sorted_list = sorted(media_list,
-                         key=lambda media: media.score,
-                         reverse=True)
+    return [' '.join(genre) for genre in genres]
 
-    return sorted_list
-
-
-def match_genre(user_genres, media, partial_match):
-    media_genres = get_lowercase_genres(media.genres)
-
-    for genre in user_genres:
-        if partial_match:
-            return genre[0] in media_genres
-        else:
-            if genre not in media_genres:
-                return False
-    return True
-
-
-def filter_genre(user_genre_args, media_list, partial_match):
-    return [media for media in media_list if match_genre(
-        get_user_genres(user_genre_args),
-        media,
-        partial_match)]
 
 
 query_url = 'https://graphql.anilist.co'
