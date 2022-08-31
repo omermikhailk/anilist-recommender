@@ -2,13 +2,13 @@
 
 ## What does this do?
 
-This is a program which aims to generate anime and manga recommendations based
-on a few parameters that the user provides. The only necessary parameter is
-the user's AniList username, however additional available parameters are:
-- One or more genres
+This program takes a user's AniList username and aims to return titles on their
+'Plan to watch' section as recommendations, based on their score. Additionally
+it can futher filter any such entries by various factors such as:
+- Preferred genres
+- Whether the user wants a complete match or a partial match of genres
 - How many recommendations the user wants
 - Whether the user is okay with anime/manga marked as 18+
-- Whether the user wants a complete match or a partial match of genres
 - A lower and/or upper bound on episodes/chapters/volumes
 
 The program will then return:
@@ -19,6 +19,20 @@ them, such as their rating, their descriptions, etc.
 
 `python main.py --help` will show a full list of the available arguments
 and what they all do.
+
+## How does this program work?
+
+The program makes use of the AniList API for some tasks and is comprised of a
+few files, each with a specific purpose.
+
+- `anime.py` and `manga.py` are classes, reperesenting the anime and manga
+entries on AniList.
+- `user.py` subsequently represents a user on AniList.
+- `args.py` deals with getting the command line arguments available for use
+with the program.
+- `prep.py` is a module with general utility and miscellaenous functions.
+- `filter.py` filters the entries from the 'Planned' section of a user's
+AniList and returns only those entries that satisy their requirements
 
 ## Dependencies
 
