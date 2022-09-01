@@ -59,7 +59,7 @@ def add_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(
         description=program_description,
         formatter_class=argparse.RawTextHelpFormatter)
-    
+
     parser.add_argument('username',
                         help=help_username)
     parser.add_argument('type',
@@ -142,7 +142,7 @@ def check_args(args: argparse.Namespace) -> None:
         for genre in user_genres:
             if genre not in anilist_genres:
                 raise ValueError(f'\'{genre}\' is not a valid AniList genre')
-        
+
         # `partial-match`
         if args.partial_match and len(user_genres) > 1:
             raise ValueError(('only one genre input is supported with the '
