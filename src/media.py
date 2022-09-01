@@ -1,7 +1,14 @@
+"""Classes representing a general `Media` object on AniList and it's subsequent
+`Anime` and `Manga` subclasses."""
+
+
 from typing import Dict
 
 
 class Media:
+    """A class representing a base `Media` object on AniList, from which the
+    `Anime` and `Manga` classes are derived.
+    """
     def __init__(self,
                  title: Dict[str, str],
                  score: int,
@@ -56,6 +63,12 @@ class Media:
 
 
 class Anime(Media):
+    """A class representing an `Anime` object on AniList. It is a subclasss of
+    the `Media` class.
+
+    Args:
+        Media (class): A class representing a `Media` object on AniList.
+    """
     def __init__(self,
                  title: Dict[str, str],
                  score: int,
@@ -94,6 +107,12 @@ class Anime(Media):
 
 
 class Manga(Media):
+    """A class representing a `Manga` object on AniList. It is a subclass of
+    the `Media` class.
+
+    Args:
+        Media (class): A class representing a `Media` object on AniList.
+    """
     def __init__(self,
                  title: Dict[str, str],
                  score: int,
