@@ -2,8 +2,7 @@
 criteria given in the command line arguments."""
 
 
-from anime import Anime
-from manga import Manga
+from media import Anime, Manga
 import prep
 
 
@@ -16,14 +15,12 @@ def sort_score(media_list: list[Anime | Manga]) -> list[Anime | Manga]:
             containing instances of the `Anime` or `Manga` classes.
 
     Returns:
-        sorted_list (list[Anime | Manga]): A sorted list of anime or manga
+        list[Anime | Manga]: A sorted list of anime or manga
             entries, in descending order of their scores on AniList.
     """
-    sorted_list = sorted(media_list,
-                         key=lambda media: media.score,
-                         reverse=True)
-
-    return sorted_list
+    return sorted(media_list,
+                  key=lambda media: media.score,
+                  reverse=True)
 
 
 def match_genre(user_genres: list[str],
