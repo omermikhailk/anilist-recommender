@@ -25,54 +25,60 @@ def sort_score(media_list: list[Anime | Manga]) -> list[Anime | Manga]:
 
 def match_genre(user_genres: list[str],
                 media: Anime | Manga,
-                partial_match: bool) -> bool:
+                strict_match: bool) -> bool:
     """Given a list of genres that the user is looking for, whether the user
-    is okay with partial matches, and a piece of media, this function will
+    is okay with strict matches, and a piece of media, this function will
     pass/fail the media accordingly.
+
+    The default matching behaviour is to HAVE the user's genres in the media's
+    genres, but not the other way around i.e extra media genre's do not matter.
+
+    However with `strict_match`, the aim is to have the media's genres match
+    with the user's genres, no extras at all.
 
     Args:
         user_genres (list[str]): A list of genres that the user is interested
             in.
         media (Anime | Manga): A piece of media on AniList.
-        partial_match (bool): Whether the user is looking for partial matches
+        strict_match (bool): Whether the user is looking for strict matches
             or not.
 
     Returns:
         bool: Will return a boolean value, indicating whether the media entry
             satisfied the genre requirements or not.
     """
-    media_genres = prep.get_lowercase_genres(media.genres)
+    media_genres = prep.get_list_lowercase(media.genres)
 
-    for genre in user_genres:
-        if partial_match:
-            return genre[0] in media_genres
-        else:
+    if not strict_match:
+        for genre in user_genres:
             if genre not in media_genres:
                 return False
-    return True
+        return True
+    else:
+        for genre in media_genres:
+            if genre not in user_genres:
+                return False
+        return True
 
 
-def filter_genre(user_genre_args: list[list[str]],
+def filter_genre(user_genres: list[str],
                  media_list: list[Anime | Manga],
-                 partial_match: bool) -> list[Anime | Manga]:
-    """Given the user's command line input, for the genre flag, a list of anime
-    or manga, and whether the user is okay with partial matches or not, this
-    function will filter the given media list and discard any entries that do
-    not fit the genre requirements.
+                 strict_match: bool) -> list[Anime | Manga]:
+    """Given the user's list of preferred genres, a list of anime or manga, and
+    whether the user is okay with strict matches or not, this function will
+    filter the given media list and discard any entries that do not fit the
+    genre requirements.
 
     Args:
-        user_genre_args (list[list[str]]): The command line input from the user
-            for the `genre` flag. It is a 2D list, where every entry contains
-            components/words comprising of a single genre.
-        media_list (list[Anime  |  Manga]): A list containing media entries.
-        partial_match (bool): A boolean indicating whether the user is okay
-            with partial matches or not.
+        user_genres (list[str]): A list of the user's preferred genres
+        media_list (list[Anime | Manga]): A list containing media entries.
+        strict_match (bool): A boolean indicating whether the user is okay
+            with strict matches or not.
 
     Returns:
         list[Anime | Manga]: The list of media entries filtered according to
             the genre requirements.
     """
-    return [media for media in media_list if match_genre(
-        prep.get_user_genres(user_genre_args),
-        media,
-        partial_match)]
+    return [media for media in media_list if match_genre(user_genres,
+                                                         media,
+                                                         strict_match)]
