@@ -1,8 +1,3 @@
-import prep
-import args
-from user import User
-
-
 query = '''
     query ($page: Int, $perPage: Int, $userName: String, $type: MediaType) {
         Page (page: $page, perPage: $perPage) {
