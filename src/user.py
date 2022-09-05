@@ -72,8 +72,8 @@ class User:
 
     def get_anime_list(self, query: str) -> list[Anime]:
         """Paginates through the user's media list, only considering anime
-        entries, and returns them as a list in the form of many `Anime`
-        objects.
+        entries which are either 'Paused' or 'Planning', and returns them as a
+        list in the form of many `Anime` objects.
 
         The returned list of objects contains entry-specific information such
         as the information such as the title of the show, the number of
@@ -100,12 +100,16 @@ class User:
 
             for entry in results:
                 anime = entry['media']
-                anime_list.append(Anime(anime['title'],
-                                        anime['episodes'],
-                                        anime['isAdult'],
-                                        anime['genres'],
-                                        anime['description'],
-                                        anime['averageScore']))
+                user_status = entry['status']
+                if user_status in ('PLANNING', 'PAUSED'):
+                    anime_list.append(Anime(anime['title'],
+                                            user_status,
+                                            anime['status'],
+                                            anime['episodes'],
+                                            anime['isAdult'],
+                                            anime['genres'],
+                                            anime['description'],
+                                            anime['averageScore']))
 
             query_variables['page'] += 1
 
@@ -113,8 +117,8 @@ class User:
 
     def get_manga_list(self, query: str) -> list[Manga]:
         """Paginates through the user's media list, only considering manga
-        entries, and returns them as a list in the form of many `Manga`
-        objects.
+        entries which are either 'Paused' or 'PLanning', and returns them as a
+        list in the form of many `Manga` objects.
 
         The returned list of objects contains entry-specific information such
         as the information such as the title of the manga, the number of
@@ -141,13 +145,17 @@ class User:
 
             for entry in results:
                 manga = entry['media']
-                manga_list.append(Manga(manga['title'],
-                                        manga['chapters'],
-                                        manga['volumes'],
-                                        manga['isAdult'],
-                                        manga['genres'],
-                                        manga['description'],
-                                        manga['averageScore']))
+                user_status = entry['userStatus']
+                if user_status in ('PLANNING', 'PAUSED'):
+                    manga_list.append(Manga(manga['title'],
+                                            user_status,
+                                            manga['status'],
+                                            manga['chapters'],
+                                            manga['volumes'],
+                                            manga['isAdult'],
+                                            manga['genres'],
+                                            manga['description'],
+                                            manga['averageScore']))
 
             query_variables['page'] += 1
 

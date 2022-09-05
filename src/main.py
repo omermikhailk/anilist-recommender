@@ -7,6 +7,7 @@ query = '''
                         english
                         romaji
                     }
+                    status
 
                     episodes
 
@@ -20,6 +21,8 @@ query = '''
 
                     averageScore
                 }
+
+                status
             }
         }
     }

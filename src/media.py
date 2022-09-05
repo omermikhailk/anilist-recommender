@@ -11,6 +11,8 @@ class Media:
     """
     def __init__(self,
                  title: Dict[str, str],
+                 user_status: str,
+                 media_status: str,
                  score: int,
                  genres: list[str],
                  description: str,
@@ -23,6 +25,9 @@ class Media:
         Args:
             title (Dict[str, str]): The title of the media (in English
                 and Romaji).
+            user_status (str): The status of the media on the user's list.
+            media_status (str): The status of the media i.e finished, airing,
+                etc.
             score (int): The score of the media from 0 to 100.
             genres (list[str]): A list of genres that fit the media.
             description (str): A string describing the media.
@@ -37,6 +42,8 @@ class Media:
         """
         # General
         self.title = title
+        self.user_status = user_status
+        self.media_status = media_status
         self.score = score
         self.genres = genres
         self.description = description
@@ -58,9 +65,10 @@ class Media:
             str: A string representing the `Media` object (or any subclassses)
                 and it's initialisation arguments.
         """
-        return (f'{self.__class__.__name__}({self.title}, {self.score}, '
-                f'{self.genres}, {self.description}, {self.adult}, '
-                f'{self.episodes}, {self.chapters}, {self.volumes})')
+        return (f'{self.__class__.__name__}({self.title}, {self.user_status}, '
+                f'{self.media_status}, {self.score}, {self.genres}, '
+                f'{self.description}, {self.adult}, {self.episodes}, '
+                f'{self.chapters}, {self.volumes})')
 
 
 class Anime(Media):
@@ -72,6 +80,8 @@ class Anime(Media):
     """
     def __init__(self,
                  title: Dict[str, str],
+                 user_status: str,
+                 media_status: str,
                  score: int,
                  genres: list[str],
                  description: str,
@@ -84,6 +94,9 @@ class Anime(Media):
         Args:
             title (Dict[str, str]): The title of the anime (in English and
                 Romaji).
+            user_status (str): The status of the anime on the user's list.
+            media_status (str): The status of the anime i.e finished, airing,
+                etc.
             score (int): The score of the anime from 0 to 100.
             genres (list[str]): A list of genres that fit the anime.
             description (str): A string describing the anime.
@@ -98,6 +111,8 @@ class Anime(Media):
                 `None`.
         """
         super().__init__(title,
+                         user_status,
+                         media_status,
                          score,
                          genres,
                          description,
@@ -116,6 +131,8 @@ class Manga(Media):
     """
     def __init__(self,
                  title: Dict[str, str],
+                 user_status: str,
+                 media_status: str,
                  score: int,
                  genres: list[str],
                  description: str,
@@ -128,6 +145,9 @@ class Manga(Media):
         Args:
             title (Dict[str, str]): The title of the manga (in English and
                 Romaji).
+            user_status (str): The status of the manga on the user's list.
+            media_status (str): The status of the manga i.e finished, airing,
+                etc.
             score (int): The score of the manga from 0 to 100.
             genres (list[str]): A list of genres that fit the manga.
             description (str): A string describing the manga.
@@ -140,6 +160,8 @@ class Manga(Media):
             volumes (int): The number of volumes the manga has.
         """
         super().__init__(title,
+                         user_status,
+                         media_status,
                          score,
                          genres,
                          description,
