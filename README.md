@@ -25,12 +25,13 @@ and what they all do.
 The program makes use of the AniList API for some tasks and is comprised of a
 few files, each with a specific purpose.
 
-- `anime.py` and `manga.py` are classes, reperesenting the anime and manga
-entries on AniList.
-- `user.py` subsequently represents a user on AniList.
+- `media.py` contains a base class representing a media entry on AniList. From
+this objects representing anime and manga entries on AniList can be derived.
+- `user.py` is subsequently a user object, representing one on AniList.
 - `args.py` deals with getting the command line arguments available for use
 with the program.
-- `prep.py` is a module with general utility and miscellaenous functions.
+- `prep.py` is a module for general utility functions, as well as some
+miscellaenous ones.
 - `filter.py` filters the entries from the 'Planned' section of a user's
 AniList and returns only those entries that satisy their requirements
 
