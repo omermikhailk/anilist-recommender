@@ -1,14 +1,14 @@
-"""An AniList user class."""
+"""A class representing an user on AniList."""
 
 
 import requests
-from anime import Anime
-from manga import Manga
+from typing import Dict
+from media import Anime, Manga
 from prep import query_url
 
 
 class User:
-    """A class representing a user on AniList.
+    """A class representing an user on AniList.
 
     Attributes:
         username (str): The user's AniList username.
@@ -22,19 +22,20 @@ class User:
         self.username = username
 
     def __repr__(self) -> str:
-        """Returns a representation of the `User` class.
+        """Returns a string representation of the `User` class.
 
         Returns:
-            str: A representation of the `User` class.
+            str: A string representation of the `User` class and it's
+                intialisation arguments.
         """
         return f'User({self.username})'
 
-    def get_query_variables(self) -> dict:
-        """Returns the variables required for the query which will be sent to
-        the AL API.
+    def get_query_variables(self) -> Dict[str, int | str | None]:
+        """Returns the variables required for the AL API query.
 
         Returns:
-            dict: The variables required for the API query.
+            Dict[str, int | str, None]: The variables required for the AL API
+                query.
         """
         return {'page': 1,
                 'perPage': 50,

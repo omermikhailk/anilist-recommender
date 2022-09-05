@@ -2,8 +2,6 @@
 for general utilities as well."""
 
 
-from anime import Anime
-from manga import Manga
 import requests
 
 
@@ -57,7 +55,6 @@ def get_user_genres(genres: list[list[str]]) -> list[str]:
         list[str]: The same genres, however in a 1D list.
     """
     return [' '.join(genre) for genre in genres]
-
 
 
 query_url = 'https://graphql.anilist.co'
