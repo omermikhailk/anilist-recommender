@@ -25,18 +25,18 @@ def get_anilist_genres() -> list:
     return genres
 
 
-def get_lowercase_genres(genres: list[str]) -> list[str]:
-    """Takes in a list of genres and returns that same list, with every
-    genre being lowercase.
+def get_list_lowercase(array: list[str]) -> list[str]:
+    """Takes in a list of strings and returns that same list, with every
+    string being lowercase.
 
     Args:
-        genres (list[str]): The list of genres.
+        array (list[str]): The list of strings.
 
     Returns:
-        list[str]: The same list of genres, with every element being converted
-            to be lowercase.
+        list[str]: The same list of strings, but with every string being
+            lowercase.
     """
-    return list(map(str.lower, genres))
+    return list(map(str.lower, array))
 
 
 query_url = 'https://graphql.anilist.co'
